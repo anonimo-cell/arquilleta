@@ -1,0 +1,285 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Galleteca</title>
+  <meta name="description" content="Planos e instrucciones para construir figuras con galletas.">
+  <link rel="stylesheet" href="css/estilos.css">
+</head>
+<body>
+
+  <!-- Menú superior: título · búsqueda · receta básica -->
+  <header class="topbar">
+    <div class="wrap top">
+      <a class="brand" href="main.html">Galleteca</a>
+
+      <form class="search" role="search" onsubmit="return false">
+        <input id="buscar" type="search" placeholder="Buscar figura…" aria-label="Buscar figura">
+        <button type="submit" aria-label="Buscar">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg>
+        </button>
+      </form>
+
+      <button class="btn" type="button" id="abrir-receta" aria-haspopup="dialog">Receta básica</button>
+    </div>
+  </header>
+
+  <!-- Menú inferior: filtros por categoría · filtro de búsqueda -->
+  <nav class="filterbar" aria-label="Filtrar por categoría">
+    <div class="wrap filters">
+      <div class="chips" id="chips"></div>
+      <button class="icon-btn" type="button" aria-label="Filtrar búsqueda" title="Filtrar búsqueda">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M7 12h10M10 18h4"/></svg>
+      </button>
+    </div>
+  </nav>
+ 
+  <!-- Centro: botón de accesibilidad · cuadrícula -->
+  <div class="wrap layout">
+    <aside class="side">
+      <button class="tab" type="button" id="abrir-a11y" aria-label="Accesibilidad" aria-expanded="false" aria-controls="a11y">
+        <span class="tab-ico" aria-hidden="true">
+          <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="4.5" r="1.6" fill="currentColor"/><path d="M5 8.5l7 1.5 7-1.5M12 10v5M12 15l-3 6M12 15l3 6"/></svg>
+        </span>
+      </button>
+
+      <!-- Ventana de accesibilidad -->
+      <dialog class="a11y" id="a11y" aria-labelledby="a11y-titulo">
+        <div class="a11y-head">
+          <h2 id="a11y-titulo">Opciones de accesibilidad</h2>
+          <button class="cerrar" type="button" id="cerrar-a11y" aria-label="Cerrar opciones de accesibilidad">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg>
+          </button>
+        </div>
+        <p class="a11y-estado" id="a11y-estado" aria-live="polite">Tamaño del texto: 100%</p>
+
+        <div class="a11y-grid">
+          <button type="button" class="a11y-btn" id="texto-mas">
+            <span class="a11y-ico txt" aria-hidden="true">A+</span>Aumentar texto
+          </button>
+          <button type="button" class="a11y-btn" id="texto-menos">
+            <span class="a11y-ico txt" aria-hidden="true">A−</span>Disminuir texto
+          </button>
+          <button type="button" class="a11y-btn" data-opt="contraste" aria-pressed="false">
+            <svg class="a11y-ico" viewBox="0 0 32 32" aria-hidden="true"><rect x="5" y="5" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.5"/><path d="M5 27 27 5v22z" fill="currentColor"/></svg>Blanco y negro
+          </button>
+          <button type="button" class="a11y-btn" data-opt="cursor" aria-pressed="false">
+            <svg class="a11y-ico" viewBox="0 0 32 32" aria-hidden="true"><path d="M7 4l18 11-8 2 5 9-4 2-5-9-6 6z" fill="currentColor"/></svg>Cursor grande
+          </button>
+          <button type="button" class="a11y-btn" data-opt="enlaces" aria-pressed="false">
+            <svg class="a11y-ico" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="M14 18a5 5 0 0 0 7 0l5-5a5 5 0 0 0-7-7l-1.5 1.5"/><path d="M18 14a5 5 0 0 0-7 0l-5 5a5 5 0 0 0 7 7l1.5-1.5"/></svg>Resaltar enlaces y botones
+          </button>
+          <button type="button" class="a11y-btn" data-opt="espaciado" aria-pressed="false">
+            <svg class="a11y-ico" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 4v24M11 9l5-5 5 5M11 23l5 5 5-5"/></svg>Más espacio entre líneas
+          </button>
+          <button type="button" class="a11y-btn" data-opt="legible" aria-pressed="false">
+            <span class="a11y-ico txt legible" aria-hidden="true">Aa</span>Letra más legible
+          </button>
+          <button type="button" class="a11y-btn" data-opt="movimiento" aria-pressed="false">
+            <svg class="a11y-ico" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><circle cx="16" cy="16" r="12"/><path d="M13 11v10M19 11v10"/></svg>Quitar animaciones
+          </button>
+          <button type="button" class="a11y-btn" id="a11y-reset">
+            <svg class="a11y-ico" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M26 16a10 10 0 1 1-3-7.1"/><path d="M24 4v6h-6"/></svg>Restablecer
+          </button>
+        </div>
+      </dialog>
+    </aside>
+
+    <main class="grid" id="grid"></main>
+  </div>
+
+  <!-- Barra inferior: sobre mí · redes sociales -->
+  <footer>
+    <div class="wrap bottom">
+      <div class="about" id="sobre">
+        <h2>Sobre mí</h2>
+        <p>Construyo figuras con galletas y comparto aquí sus planos e instrucciones.</p>
+      </div>
+      <ul class="social" aria-label="Redes sociales">
+        <li>
+          <span>
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" role="img" aria-label="Instagram"><rect x="3" y="3" width="18" height="18" rx="5.5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.4" cy="6.6" r="1.2" fill="currentColor" stroke="none"/></svg>
+            xxxx
+          </span>
+        </li>
+      </ul>
+    </div>
+  </footer>
+
+  <!-- Ventana con la receta básica -->
+  <dialog class="receta" id="receta" aria-labelledby="receta-titulo">
+    <div class="receta-head">
+      <h2 id="receta-titulo">Receta básica</h2>
+      <form method="dialog">
+        <button class="cerrar" aria-label="Cerrar receta">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg>
+        </button>
+      </form>
+    </div>
+
+    <div class="receta-body">
+      <section>
+        <h3>Galletas para construir</h3>
+        <p class="nota">Masa firme que no se deforma en el horno, ideal para piezas que tienen que encajar.</p>
+        <h4>Ingredientes</h4>
+        <ul>
+          <li>500 g de harina de trigo</li>
+          <li>250 g de mantequilla fría en cubos</li>
+          <li>200 g de azúcar glas</li>
+          <li>1 huevo grande</li>
+          <li>1 cucharadita de extracto de vainilla</li>
+          <li>1 pizca de sal</li>
+        </ul>
+        <h4>Pasos</h4>
+        <ol>
+          <li>Mezcla la harina, el azúcar glas y la sal.</li>
+          <li>Añade la mantequilla y frota con los dedos hasta que parezca arena.</li>
+          <li>Incorpora el huevo y la vainilla y amasa lo justo hasta formar una bola.</li>
+          <li>Estira la masa entre dos papeles de horno a 5 mm de grosor y refrigera 30 min.</li>
+          <li>Corta las piezas con las plantillas y vuelve a enfriarlas 10 min en la bandeja.</li>
+          <li>Hornea a 170 °C durante 12–15 min, hasta que los bordes estén apenas dorados.</li>
+          <li>Si alguna pieza ha crecido, recórtala con la plantilla nada más sacarla, en caliente.</li>
+          <li>Deja enfriar del todo antes de montar.</li>
+        </ol>
+      </section>
+
+      <section>
+        <h3>Merengue para pegar</h3>
+        <p class="nota">Glasa real: se seca dura como pegamento y sujeta las paredes.</p>
+        <h4>Ingredientes</h4>
+        <ul>
+          <li>1 clara de huevo (unos 30 g)</li>
+          <li>250 g de azúcar glas tamizado</li>
+          <li>Unas gotas de zumo de limón</li>
+        </ul>
+        <h4>Pasos</h4>
+        <ol>
+          <li>Bate la clara con el limón hasta que haga espuma.</li>
+          <li>Añade el azúcar glas poco a poco sin dejar de batir.</li>
+          <li>Sigue batiendo 4–5 min hasta que forme picos firmes que no se caigan.</li>
+          <li>Ponlo en una manga pastelera con boquilla fina y tápalo con un paño húmedo: se seca rápido.</li>
+          <li>Aplica un cordón en los bordes, une las piezas y sujétalas unos minutos.</li>
+          <li>Deja secar al menos 1–2 horas antes de poner el tejado o mover la figura.</li>
+        </ol>
+      </section>
+    </div>
+  </dialog>
+
+  <script src="figuras.js"></script>
+  <script>
+    const grid = document.getElementById("grid");
+    const chips = document.getElementById("chips");
+    const buscar = document.getElementById("buscar");
+    const CATEGORIAS = ["Todo", "Edificios", "Objetos"];
+    let categoria = "Todo";
+
+    // Icono de cada filtro (trazos SVG de 24x24)
+    const ICONOS = {
+      "Todo": '<rect x="4" y="4" width="7" height="7" rx="1.5"/><rect x="13" y="4" width="7" height="7" rx="1.5"/><rect x="4" y="13" width="7" height="7" rx="1.5"/><rect x="13" y="13" width="7" height="7" rx="1.5"/>',
+      "Edificios": '<path d="M3 11l9-7 9 7"/><path d="M5 10v10h14V10"/><path d="M10 20v-5h4v5"/>',
+      "Objetos": '<path d="M12 3l8 4.5v9L12 21l-8-4.5v-9z"/><path d="M4 7.5l8 4.5 8-4.5M12 12v9"/>'
+    };
+    const icono = c => `<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ICONOS[c]}</svg>`;
+
+    const figuras = [...FIGURAS].sort((a, b) => (b.fecha || "").localeCompare(a.fecha || ""));
+
+    function esc(s) {
+      return String(s ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+    }
+
+    // Me gustas y visualizaciones, abajo a la derecha de cada tarjeta
+    const numero = n => (n || 0).toLocaleString("es-ES");
+    function stats(f) {
+      return `<div class="stats">
+        <span aria-label="${numero(f.megusta)} me gusta">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true"><path d="M12 21s-7.5-4.6-9.6-9.2C.9 8.4 3 4.5 6.7 4.5c2.1 0 3.6 1.1 4.3 2.4.4.7 1.6.7 2 0 .7-1.3 2.2-2.4 4.3-2.4 3.7 0 5.8 3.9 4.3 7.3C19.5 16.4 12 21 12 21z"/></svg>
+          ${numero(f.megusta)}
+        </span>
+        <span aria-label="${numero(f.vistas)} visualizaciones">
+          <svg viewBox="0 0 24 24" width="17" height="17" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M12 5C6.5 5 2.7 9.1 1.5 12c1.2 2.9 5 7 10.5 7s9.3-4.1 10.5-7C21.3 9.1 17.5 5 12 5zm0 11.5a4.5 4.5 0 1 1 0-9 4.5 4.5 0 0 1 0 9zm0-2.3a2.2 2.2 0 1 0 0-4.4 2.2 2.2 0 0 0 0 4.4z"/></svg>
+          ${numero(f.vistas)}
+        </span>
+      </div>`;
+    }
+
+    function pintarFiltros() {
+      chips.innerHTML = CATEGORIAS.map(c =>
+        `<button class="chip${c === categoria ? " on" : ""}" data-cat="${c}">${icono(c)}${c}</button>`).join("");
+      chips.querySelectorAll(".chip").forEach(b => b.onclick = () => {
+        categoria = b.dataset.cat;
+        pintarFiltros();
+        pintar();
+      });
+    }
+
+    function pintar() {
+      const q = buscar.value.trim().toLowerCase();
+      const lista = figuras.filter(f =>
+        (categoria === "Todo" || f.categoria === categoria) &&
+        (!q || f.titulo.toLowerCase().includes(q))
+      );
+      if (!lista.length) { grid.innerHTML = `<p class="empty">No hay figuras que coincidan.</p>`; return; }
+      grid.innerHTML = lista.map(f => `
+        <a class="card" href="${esc(f.enlace)}" target="_blank" rel="noopener">
+          <div class="thumb">
+            ${f.imagen
+              ? `<img src="${esc(f.imagen)}" alt="${esc(f.titulo)}" loading="lazy">`
+              : `<div class="placeholder" aria-hidden="true">🍪</div>`}
+            <span class="acceder" aria-hidden="true">Acceder</span>
+          </div>
+          <h3>${esc(f.titulo)}</h3>
+          ${stats(f)}
+        </a>`).join("");
+    }
+
+    // Receta básica: abrir el diálogo y cerrarlo también al pulsar fuera
+    const receta = document.getElementById("receta");
+    document.getElementById("abrir-receta").onclick = () => receta.showModal();
+    receta.addEventListener("click", e => { if (e.target === receta) receta.close(); });
+
+    // ---------- Ventana de accesibilidad ----------
+    // Cada opción pone una clase en <html> (a11y-contraste, a11y-cursor…) y se guarda en el navegador.
+    const panel = document.getElementById("a11y");
+    const tabA11y = document.getElementById("abrir-a11y");
+    const estado = document.getElementById("a11y-estado");
+    const OPCIONES = ["contraste", "cursor", "enlaces", "espaciado", "legible", "movimiento"];
+    const ZOOM = { "-1": 0.9, "0": 1, "1": 1.15, "2": 1.3, "3": 1.5 };   // niveles de tamaño de texto
+    let ajustes = { texto: 0 };
+    try { ajustes = { texto: 0, ...JSON.parse(localStorage.getItem("a11y") || "{}") }; } catch (e) {}
+    if (!(ajustes.texto in ZOOM)) ajustes.texto = 0;
+
+    function aplicarAjustes() {
+      const html = document.documentElement;
+      const z = ZOOM[ajustes.texto];
+      document.body.style.zoom = z === 1 ? "" : z;
+      estado.textContent = `Tamaño del texto: ${Math.round(z * 100)}%`;
+      document.getElementById("texto-mas").disabled = ajustes.texto >= 3;
+      document.getElementById("texto-menos").disabled = ajustes.texto <= -1;
+      OPCIONES.forEach(o => {
+        html.classList.toggle(`a11y-${o}`, !!ajustes[o]);
+        panel.querySelector(`[data-opt="${o}"]`).setAttribute("aria-pressed", String(!!ajustes[o]));
+      });
+      try { localStorage.setItem("a11y", JSON.stringify(ajustes)); } catch (e) {}
+    }
+
+    // Se abre como ventana modal (igual que la receta): Escape y clic fuera la cierran
+    tabA11y.onclick = () => {
+      panel.showModal();
+      tabA11y.setAttribute("aria-expanded", "true");
+    };
+    document.getElementById("cerrar-a11y").onclick = () => panel.close();
+    panel.addEventListener("click", e => { if (e.target === panel) panel.close(); });
+    panel.addEventListener("close", () => tabA11y.setAttribute("aria-expanded", "false"));
+    document.getElementById("texto-mas").onclick = () => { ajustes.texto++; aplicarAjustes(); };
+    document.getElementById("texto-menos").onclick = () => { ajustes.texto--; aplicarAjustes(); };
+    panel.querySelectorAll("[data-opt]").forEach(b => b.onclick = () => { ajustes[b.dataset.opt] = !ajustes[b.dataset.opt]; aplicarAjustes(); });
+    document.getElementById("a11y-reset").onclick = () => { ajustes = { texto: 0 }; aplicarAjustes(); };
+    aplicarAjustes();
+
+    buscar.oninput = pintar;
+    pintarFiltros();
+    pintar();
+  </script>
+</body>
+</html>
