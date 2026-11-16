@@ -228,7 +228,6 @@ footer { background: var(--gris); color: var(--azul); }
 .a11y-btn:disabled { opacity: .45; cursor: not-allowed; box-shadow: none; }
 .a11y-ico { width: 36px; height: 36px; flex: none; }
 .a11y-ico.txt { width: auto; height: auto; font-size: 30px; line-height: 1; font-weight: 800; }
-.a11y-ico.legible { font-family: Verdana, Tahoma, sans-serif; }
 
 /* ---------- Ajustes que aplica el panel (clases en <html>) ---------- */
 html.a11y-contraste {
@@ -245,15 +244,10 @@ html.a11y-cursor, html.a11y-cursor * {
   cursor: url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%2740%27 height=%2740%27 viewBox=%270 0 32 32%27%3E%3Cpath d=%27M5 3l20 12-9 2 5 10-4 2-5-10-7 7z%27 fill=%27black%27 stroke=%27white%27 stroke-width=%272%27 stroke-linejoin=%27round%27/%3E%3C/svg%3E") 4 3, auto !important;
 }
 html.a11y-contraste .stats { border-top-color: #000; }
-html.a11y-legible body, html.a11y-legible button, html.a11y-legible input { font-family: Verdana, Tahoma, sans-serif; }
 html.a11y-espaciado body * { line-height: 1.8 !important; letter-spacing: .12em !important; word-spacing: .16em !important; }
 html.a11y-enlaces a, html.a11y-enlaces button { text-decoration: underline !important; text-underline-offset: 3px; }
 html.a11y-enlaces a:not(.card), html.a11y-enlaces button { box-shadow: 0 0 0 3px var(--mostaza) !important; }
 html.a11y-enlaces .card .thumb { outline: 3px solid var(--mostaza); outline-offset: 3px; }
-html.a11y-movimiento *, html.a11y-movimiento *::before, html.a11y-movimiento *::after {
-  transition: none !important; animation: none !important;
-}
-html.a11y-movimiento .card:hover .thumb img, html.a11y-movimiento .card:hover .placeholder { transform: none; }
 
 @media (max-width: 700px) {
   .top { grid-template-columns: 1fr auto; }
